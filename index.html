@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>XR Spinosaurus</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <script>
+      if (window.location.protocol == "http:" &&
+          window.location.hostname != "localhost" && 
+          window.location.hostname != "127.0.0.1" &&
+          window.location.hostname != "[::1]") {
+        window.location = window.location.href.replace('http:', 'https:');        
+      }
+    </script>    
+    
+    <!-- import the webpage's javascript files -->
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+
+    <script>
+      AFRAME.registerComponent('hide-in-ar-mode', {
+        init: function () {
+          this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+            this.wasVisible = this.el.getAttribute('visible');
+            if (this.el.sceneEl.is('ar-mode')) {
+              this.el.setAttribute('visible', false);
+            }
+          });
+          this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+            if (this.wasVisible) this.el.setAttribute('visible', true);
+          });
+        }
+      });
+      
+      AFRAME.registerComponent('ar-shadows', {
+        schema: {
+          opacity: {default: 0.3}
+        },
+        init: function () {
+          this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+            this.wasVisible = this.el.getAttribute('visible');
+            if (this.el.sceneEl.is('ar-mode')) {
+              this.savedMaterial = this.el.object3D.children[0].material;
+              this.el.object3D.children[0].material = new THREE.ShadowMaterial();
+              this.el.object3D.children[0].material.opacity = this.data.opacity;
+              this.el.setAttribute('visible', true);
+            }
+          });
+          this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+            if (this.savedMaterial) {
+              this.el.object3D.children[0].material = this.savedMaterial;
+              this.savedMaterial = null;
+            }
+            if (!this.wasVisible) this.el.setAttribute('visible', false);
+          });
+        }
+      });    
+  </script>
+  </head>  
+  <body>
+
+    <a-scene>
+      <a-assets timeout="30000">
+        <!-- Model source: https://sketchfab.com/3d-models/spinosaurus-2135501583704537907645bf723685e7
+             Model author: https://sketchfab.com/VapTor
+             Model license: CC Attribution -->
+        <a-asset-item id="spinosaurus" src="https://cdn.glitch.com/324a5290-5aa7-4efc-92d6-ae0736433b12%2Fspinosaurus.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="t-rex" src="running_t_rex.glb" response-type="arraybuffer"></a-asset-item>  
+        <a-asset-item id="scene" src="Allosaurus.glb" response-type="arraybuffer"></a-asset-item>  
+        <a-asset-item id="cage" src="cagefolder/scene.gltf"></a-asset-item>  
+        <a-asset-item id="steg" src="stego/scene.gltf"></a- asset-item>  
+        <a-asset-item id="sucho" src="suchominus/scene.gltf"></a-asset-item>
+        <a-asset-item id="big" src="big/scene.gltf"></a-asset-item>  
+        <a-asset-item id="biggie" src="biggie/scene.gltf"></a-asset-item>  
+      </a-assets>
+      
+      <a-camera position="0 1.2 0" look-controls wasd-controls="acceleration: 150"></a-camera>
+      
+      <!-- Environment for 2D and VR viewing. It's auto-hidden in AR mode. -->
+      <a-entity environment="preset: arches; lighting: none; shadow: none; lightPosition: 0 2.15 0"
+                hide-in-ar-mode></a-entity>
+      
+      <a-entity id="dino" position="-3 0 13" scale="0.5 0.5 0.5">
+        <a-entity position="-10 2.15 -8" rotation="0 110 0"
+                  gltf-model="#spinosaurus"
+                  animation-mixer
+                  shadow="cast: true; receive: false"></a-entity>
+      </a-entity> 
+
+      <a-entity id="dino2" position="-0 -1 -11" scale="0.5 0.5 0.5" animation="
+      property:position;
+      from:0 -1 -11;
+      to:0 -1 -3;
+      dur:6000;
+      direction: alternate;
+      repeat: indefinite 
+      ">
+        <a-entity position="0 2.15 0"
+                  gltf-model="#t-rex"
+                  animation-mixer
+                  shadow="cast: true; receive: false"></a-entity>
+      </a-entity>
+
+      <a-entity id="dino4" position="6.3 0 1.5" scale="1.7 1.7 1.7">
+        <a-entity position="2.3 0 .5" rotation="0 210 0"
+                  gltf-model="#sucho"
+                  animation-mixer
+                  shadow="cast: true; receive: false"></a-entity>
+      </a-entity>
+
+      <a-entity gltf-model="#steg"></a-entity>
+
+      <a-entity gltf-model="#big" position="120 92 -10" scale="30 30 30"></a-entity>
+
+      <a-entity gltf-model="#biggie" position="-120 82 -10" scale="40 40 40"></a-entity>
+
+      <a-entity id="dino3" position="-9 0 2" scale="0.015 0.015 0.015">
+        <a-entity position="-9 0 -5" rotation="0 -120 0"
+                  gltf-model="#steg"
+                  animation-mixer
+                  shadow="cast: true; receive: false"></a-entity>
+      </a-entity> 
+
+      <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" position="2 50 -1" animation="
+      property:position;
+      from:2 50 -1;
+      to:2 0 -1;
+      dur:6000;
+      direction: alternate;
+      repeat: indefinite 
+ 
+      ">
+      
+      <a-entity text="value: The T-Rex is one of the most notorious dinosaurs. The word &quot;rex&quot; means &quot;king&quot; in Latin. The T-Rex had by far the strongest bite force of all dinosaurs: 35,000 newtons. Compare that to the humans measely 300 newtons and you realize why the T-Rex is widely considered the most famous dinosaur." position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      </a-entity>
+    </a-entity>
+
+      <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" position="-7 50 -1.4" rotation="0 90 0" animation="
+      property:position;
+      from:-7 50 -1.4;
+      to:-7 0 -1.4;
+      dur:6000;
+      direction: alternate;
+      repeat: indefinite 
+      ">
+      <a-entity text="value: The Stegosaurus was one of the most peaceful dinosaurs. They were herbivores, meaning they only ate plants and not meat. The Stegosaurus is best known for its distinctive kite-shaped upright plates along its back spikes on their tail" position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      </a-entity>
+    </a-entity>
+
+      <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" rotation="0 90 0" position="-6 50 6.5" animation="
+      property:position;
+      from:-6 50 6.5;
+      to:-6 0 6.5;
+      dur:6000;
+      direction: alternate;
+      repeat: indefinite 
+      ">
+      <a-entity text="value: The Spinosaurus is an example of a highly predatory and meat-loving dinosaur. According to research, the Spinosaurus was an excellent swimmer, and would often swim in pursuit of its prey. The Spinosaurus is the largest known carnivorous dinosaur. Go to your right to visit a very close relative of the Spinosaurus, the Suchominus" position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      </a-entity></a-entity>
+      <!-- suchominus cage: -->
+      <a-entity gltf-model="#cage" scale="3.5 1.5 2" position="10.5 50 10.5" rotation="0 -90 0" animation="
+      property:position;
+      from:10.5 50 11.5;
+      to:10.5 0 11.5;
+      dur:6000;
+      direction: alternate;
+      repeat: indefinite 
+      ">
+      <a-entity text="value: A recent 2022 study indicates that the Suchominus was a very close relative of the Spinosaurus, who you can visit on your left. As is with the Spinosaurus, it is also believed that the Suchominus could swim and primarily did so while hunting. It is confirmed that the Suchominus lived in what is now Niger." position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      </a-entity></a-entity></a-entity>
+
+      <!-- This shadow-receiving plane is only visible in AR mode. -->
+      <a-plane height="15" width="15" position="0 0 -3" rotation="-90 0 0"
+               shadow="receive: true"
+               ar-shadows="opacity: 0.3"
+               visible="false"></a-plane>
+
+    <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+    <a-light type="directional"
+            light="castShadow: true;
+                    shadowMapHeight: 1024;
+                    shadowMapWidth: 1024;
+                    shadowCameraLeft: -7;
+                    shadowCameraRight: 5;
+                    shadowCameraBottom: -5;
+                    shadowCameraTop: 5;"
+            id="light"
+            target="dino"
+            position="-5 3 1.5"></a-light>
+
+    </a-scene>
+
+    <script>
+      function setSize(scale) {
+        document.getElementById('dino').setAttribute('scale', {x: scale, y: scale, z: scale});
+        document.getElementById('t-rex').setAttribute('scale', {x: scale, y: scale, z: scale});
+      }
+      document.getElementById('btn_full').onclick = setSize.bind(this, 1);
+      document.getElementById('btn_half').onclick = setSize.bind(this, 0.5);
+      document.getElementById('btn_quarter').onclick = setSize.bind(this, 0.25);
+    </script>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>
