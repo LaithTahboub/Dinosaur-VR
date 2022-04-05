@@ -83,7 +83,7 @@
       </a-assets>
       
       <a-entity>
-        <a-entity camera look-controls="pointerLockEnabled:true">
+        <a-entity position="0 1.5 1.8" camera look-controls="pointerLockEnabled:true">
         <a-cursor>
         </a-cursor>
       </a-entity>
@@ -92,7 +92,7 @@
                 hide-in-ar-mode></a-entity>
       
       <a-entity id="dino" position="-3 0 13" scale="0.5 0.5 0.5">
-        <a-entity position="-10 2.15 -8" rotation="0 110 0"
+        <a-entity position="3.5 2.15 -12" rotation="0 110 0"
                   gltf-model="#spinosaurus"
                   animation-mixer
                   shadow="cast: true; receive: false"></a-entity>
@@ -112,8 +112,8 @@
                   shadow="cast: true; receive: false"></a-entity>
       </a-entity>
 
-      <a-entity id="dino4" position="6.3 0 1.5" scale="1.7 1.7 1.7">
-        <a-entity position="2.3 0 .5" rotation="0 210 0"
+      <a-entity id="dino4" position="2 0 1.5" scale="1.7 1.7 1.7">
+        <a-entity position="2 0 .5" rotation="0 210 0"
                   gltf-model="#sucho"
                   animation-mixer
                   shadow="cast: true; receive: false"></a-entity>
@@ -125,8 +125,8 @@
 
       <a-entity gltf-model="#biggie" position="-120 82 -10" scale="40 40 40"></a-entity>
 
-      <a-entity id="dino3" position="-9 0 2" scale="0.015 0.015 0.015">
-        <a-entity position="-9 0 -5" rotation="0 -120 0"
+      <a-entity id="dino3" position="-5 0 2" scale="0.015 0.015 0.015">
+        <a-entity position="-5 0 -5" rotation="0 -120 0"
                   gltf-model="#steg"
                   animation-mixer
                   shadow="cast: true; receive: false"></a-entity>
@@ -142,42 +142,42 @@
  
       ">
       
-      <a-entity text="value: The T-Rex is one of the most notorious dinosaurs. The word &quot;rex&quot; means &quot;king&quot; in Latin. The T-Rex had by far the strongest bite force of all dinosaurs: 35,000 newtons. Compare that to the humans measely 300 newtons and you realize why the T-Rex is widely considered the most famous dinosaur." position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      <a-entity text="value: The T-Rex is the most notorious dinosaur of all. The word &quot;rex&quot; means &quot;king&quot; in Latin. The T-Rex had by far the strongest bite force of all dinosaurs: 35,000 newtons. Compare that to the humans measely 300 newtons and you realize why the T-Rex is widely considered the most famous dinosaur." position="-.8 .60 .08" scale="1.5 1.5 1.5">
       </a-entity>
     </a-entity>
-
+<!-- steg cage -->
       <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" position="-7 50 -1.4" rotation="0 90 0" animation="
       property:position;
-      from:-7 50 -1.4;
-      to:-7 0 -1.4;
+      from:-3 50 -1.4;
+      to:-3 0 -1.4;
       dur:6000;
       direction: alternate;
       repeat: indefinite 
       ">
-      <a-entity text="value: The Stegosaurus was one of the most peaceful dinosaurs. They were herbivores, meaning they only ate plants and not meat. The Stegosaurus is best known for its distinctive kite-shaped upright plates along its back spikes on their tail" position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      <a-entity text="value: The Stegosaurus was one of the most peaceful dinosaurs. They were herbivores, meaning they only ate plants and not meat. The Stegosaurus is best known for its distinctive kite-shaped upright plates along its back spikes on their tail" position="-1 .60 .08" scale="1.5 1.5 1.5">
       </a-entity>
     </a-entity>
-
-      <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" rotation="0 90 0" position="-6 50 6.5" animation="
+    <!-- spino cage -->
+      <a-entity gltf-model="#cage" scale="2.5 1.5 2.5" rotation="0 180 0" position="-6 50 6.5" animation="
       property:position;
-      from:-6 50 6.5;
-      to:-6 0 6.5;
+      from:-3 50 4;
+      to:-3 0 4;
       dur:6000;
       direction: alternate;
       repeat: indefinite 
       ">
-      <a-entity text="value: The Spinosaurus is an example of a highly predatory and meat-loving dinosaur. According to research, the Spinosaurus was an excellent swimmer, and would often swim in pursuit of its prey. The Spinosaurus is the largest known carnivorous dinosaur. Go to your right to visit a very close relative of the Spinosaurus, the Suchominus" position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      <a-entity text="value: The Spinosaurus is an example of a highly predatory and meat-loving dinosaur. According to research, the Spinosaurus was an excellent swimmer, and would often swim in pursuit of its prey. The Spinosaurus is the largest known carnivorous dinosaur. Go to your left to visit a very close relative of the Spinosaurus, the Suchominus" position="-1 .60 .08" scale="1.5 1.5 1.5">
       </a-entity></a-entity>
       <!-- suchominus cage: -->
       <a-entity gltf-model="#cage" scale="3.5 1.5 2" position="10.5 50 10.5" rotation="0 -90 0" animation="
       property:position;
-      from:10.5 50 11.5;
-      to:10.5 0 11.5;
+      from:2.3 50 4.48;
+      to:2.3 0 4.48;
       dur:6000;
       direction: alternate;
       repeat: indefinite 
       ">
-      <a-entity text="value: A recent 2022 study indicates that the Suchominus was a very close relative of the Spinosaurus, who you can visit on your left. As is with the Spinosaurus, it is also believed that the Suchominus could swim and primarily did so while hunting. It is confirmed that the Suchominus lived in what is now Niger." position="-.8 .60 .08" scale="1.5 1.5 1.5">
+      <a-entity text="value: A recent 2022 study indicates that the Suchominus was a very close relative of the Spinosaurus, who you can visit on your right. As is with the Spinosaurus, it is also believed that the Suchominus could swim and primarily did so while hunting. It is confirmed that the Suchominus lived in what is now Niger." position="-.8 .60 .08" scale="1.5 1.5 1.5">
       </a-entity></a-entity></a-entity>
 
       <!-- This shadow-receiving plane is only visible in AR mode. -->
