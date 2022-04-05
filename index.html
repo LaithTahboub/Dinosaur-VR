@@ -24,6 +24,18 @@
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 
     <script>
+      AFRAME.registerComponent("fly", {
+            schema: {
+                stepFactor: { type: "number", default: 0.5 },
+                isFlying: { type: "boolean", default: true }
+            },
+            tick: function () {
+                if (this.data.isFlying) {
+                    let newP = this.el.components.camera.camera.parent.position.add(this.el.components.camera.camera.getWorldDirection().multiplyScalar(this.data.stepFactor));
+                    this.el.setAttribute('position', newP)
+                }
+            }
+        });
       AFRAME.registerComponent('hide-in-ar-mode', {
         init: function () {
           this.el.sceneEl.addEventListener('enter-vr', (ev) => {
